@@ -12,7 +12,7 @@ api = twitter.Api(consumer_key=os.getenv('CONSUMER_KEY'),
                   access_token_secret=os.getenv('ACCESS_TOKEN_SECRET'))
 
 
-def hello(event, context):
+def handle(event, context):
     tweet_connpass()
     response = {
         "statusCode": 200,
@@ -41,4 +41,4 @@ def tweet_connpass():
 
 
 if __name__ == '__main__':
-    hello({}, {})
+    handle({}, {})
