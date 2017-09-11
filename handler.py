@@ -6,10 +6,10 @@ from datetime import datetime as dt
 from connpass import get_event_connpass, get_event_connpass_id
 
 
-t = twitter.Twitter(auth=twitter.OAuth(token=os.getenv('ACCESS_TOKEN'),
-                    token_secret=os.getenv('ACCESS_TOKEN_SECRET'),
-                    consumer_key=os.getenv('CONSUMER_KEY'),
-                    consumer_secret=os.getenv('CONSUMER_SECRET')))
+t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
+                access_token_secret=os.getenv('ACCESS_TOKEN_SECRET'),
+                consumer_key=os.getenv('CONSUMER_KEY'),
+                consumer_secret=os.getenv('CONSUMER_SECRET'))
 
 
 def handle(event, context):
@@ -37,7 +37,7 @@ def tweet_connpass():
 
     for post_text in post_texts:
         # print(post_text)
-        t.statuses.update(status=post_text)
+        t.PostUpdates(status=post_text)
         # t.statuses.update(status='PyCon JP 2017 始まりました！（テスポ）')
 
 
