@@ -13,7 +13,22 @@ t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
 
 
 def handle(event, context):
-    tweet_connpass()
+    now = dt.now()
+    if 0 <= now.hour == 10:
+        pass
+    elif now.hour == 11:
+        tweet_lunch()
+        tweet_connpass()
+    elif 12 <= now.hour <= 20:
+        pass
+    elif now.hour == 21:
+        t.PostUpdates(status='1日8時間睡眠のためにも寝る準備をしましょう！')
+    elif now.hour == 22:
+        pass
+    elif now.hour == 23:
+        tweet_connpass()
+    else:
+        pass
     response = {
         "statusCode": 200,
         "body": '{}',
@@ -22,8 +37,26 @@ def handle(event, context):
     return response
 
 
+def tweet_lunch():
+    now = dt.now()
+    if now.second == 10:
+        menu = '💩'
+    elif now.second%10 in (1, 3):
+        menu = '🍺'
+    elif now.second%10 in (2, 4, 6):
+        menu = '🍣'
+    elif now.second%10 in (5, 7):
+        menu = '🍜'
+    else:
+        menu = '🍙'
+    t.PostUpdates(status='今日のお昼は{}にしよう！'.format(menu))
+
+
 def tweet_connpass():
     today = dt.now(pytz.timezone('Asia/Tokyo'))
+    # 2日にいっぺんくらいつぶやいとく
+    if today.day%2 == 0:
+        return
     post_texts = []
     NSEG = 2391
     GLNAGANO = 2591
