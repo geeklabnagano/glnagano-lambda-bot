@@ -4,6 +4,7 @@ import pytz
 import twitter
 from datetime import datetime as dt
 from connpass import get_event_connpass, get_event_connpass_id
+from doco.client import Client
 
 
 t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
@@ -13,6 +14,7 @@ t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
 
 
 def handle(event, context):
+    # reply()
     now = dt.now()
     if 0 <= now.hour == 10:
         pass
@@ -35,6 +37,16 @@ def handle(event, context):
     }
 
     return response
+
+
+def reply():
+    c = Client(apikey=os.getenv('DOCO_API_KEY'))
+    since_id = 1909013802699546524  # どっかに保存しておく
+    replies = t.GetMentions(since_id=since_id, trim_user=2208330278)
+    for reply in replies:
+        print(reply.id)  # どっかに保存しておく
+        res = c.send(ut=reply.text, apiname='Dialogue')
+        t.PostUpdate(res['utt'], in_reply_to_status_id=reply.id)
 
 
 def tweet_lunch():
