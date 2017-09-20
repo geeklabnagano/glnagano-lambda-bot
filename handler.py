@@ -15,7 +15,7 @@ t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
 
 def handle(event, context):
     # reply()
-    now = dt.now()
+    now = dt.now(pytz.timezone('Asia/Tokyo'))
     if 0 <= now.hour == 10:
         pass
     elif now.hour == 11:
@@ -50,7 +50,7 @@ def reply():
 
 
 def tweet_lunch():
-    now = dt.now()
+    now = dt.now(pytz.timezone('Asia/Tokyo'))
     if now.second == 10:
         menu = '💩'
     elif now.second%10 in (1, 3):
