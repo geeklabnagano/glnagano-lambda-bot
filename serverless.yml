@@ -48,6 +48,7 @@ provider:
     CONSUMER_SECRET: ${file(./serverless.env.yml):CONSUMER_SECRET}
     ACCESS_TOKEN: ${file(./serverless.env.yml):ACCESS_TOKEN}
     ACCESS_TOKEN_SECRET: ${file(./serverless.env.yml):ACCESS_TOKEN_SECRET}
+    DOCO_API_KEY: ${file(./serverless.env.yml):DOCO_API_KEY}
 
 # you can add packaging information here
 #package:
