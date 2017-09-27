@@ -49,6 +49,8 @@ provider:
     ACCESS_TOKEN: ${file(./serverless.env.yml):ACCESS_TOKEN}
     ACCESS_TOKEN_SECRET: ${file(./serverless.env.yml):ACCESS_TOKEN_SECRET}
     DOCO_API_KEY: ${file(./serverless.env.yml):DOCO_API_KEY}
+    AWS_S3_BUCKET_NAME: ${file(./serverless.env.yml):AWS_S3_BUCKET_NAME}
+
 
 # you can add packaging information here
 #package:

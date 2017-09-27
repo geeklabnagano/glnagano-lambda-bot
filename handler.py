@@ -1,5 +1,6 @@
 import os
 
+import boto3
 import pytz
 import twitter
 from datetime import datetime as dt
@@ -14,7 +15,7 @@ t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
 
 
 def handle(event, context):
-    # reply()
+    reply()
     now = dt.now(pytz.timezone('Asia/Tokyo'))
     if 0 <= now.hour == 10:
         pass
@@ -41,10 +42,24 @@ def handle(event, context):
 
 def reply():
     c = Client(apikey=os.getenv('DOCO_API_KEY'))
-    since_id = 1909013802699546524  # どっかに保存しておく
+
+    # from boto3.session import Session
+    # session = Session(profile_name='my_local_profile')
+    # s3 = session.resource('s3')
+    s3 = boto3.resource('s3')
+
+    bucket = s3.Bucket(os.getenv('AWS_S3_BUCKET_NAME'))
+    obj = bucket.Object('last_reply_id')
+    response = obj.get()
+    body = response['Body'].read()
+    since_id = int(body.decode('utf-8'))
     replies = t.GetMentions(since_id=since_id, trim_user=2208330278)
     for reply in replies:
-        print(reply.id)  # どっかに保存しておく
+        response = obj.put(
+            Body=str(since_id).encode('utf-8'),
+            ContentEncoding='utf-8',
+            ContentType='text/plain'
+        )
         res = c.send(ut=reply.text, apiname='Dialogue')
         t.PostUpdate(res['utt'], in_reply_to_status_id=reply.id)
 
