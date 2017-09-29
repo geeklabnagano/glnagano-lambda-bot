@@ -61,7 +61,8 @@ def reply():
             ContentType='text/plain'
         )
         res = c.send(ut=reply.text, apiname='Dialogue')
-        t.PostUpdate(res['utt'], in_reply_to_status_id=reply.id)
+        user = t.GetUser(user_id=reply.user.id)
+        t.PostUpdate('@{} {} (bot)'.format(user.screen_name, res['utt']), in_reply_to_status_id=reply.id)
 
 
 def tweet_lunch():
