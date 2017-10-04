@@ -88,8 +88,9 @@ def tweet_connpass():
     post_texts = []
     NSEG = 2391
     GLNAGANO = 2591
+    JAWS_UG_NAGANO = 4553
 
-    for comm in [NSEG, GLNAGANO]:
+    for comm in [NSEG, GLNAGANO, JAWS_UG_NAGANO]:
         post_texts.extend(get_event_connpass(comm, today))
 
     # イベントのIDでツイート
