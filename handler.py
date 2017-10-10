@@ -15,7 +15,7 @@ t = twitter.Api(access_token_key=os.getenv('ACCESS_TOKEN'),
 
 
 def handle(event, context):
-    reply()
+    # reply()
     now = dt.now(pytz.timezone('Asia/Tokyo'))
     if 0 <= now.hour == 10:
         pass
