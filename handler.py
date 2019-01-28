@@ -69,11 +69,19 @@ def tweet_lunch():
     now = dt.now(pytz.timezone('Asia/Tokyo'))
     if now.second == 10:
         menu = '💩'
-    elif now.second%10 in (1, 3):
-        menu = '🍺'
-    elif now.second%10 in (2, 4, 6):
+    elif now.second%10 in (1, 2):
+        menu = '🍻'
+    elif now.second%10 in (3, ):
         menu = '🍣'
-    elif now.second%10 in (5, 7):
+    elif now.second%10 in (4, ):
+        menu = '🍦'
+    elif now.second%10 in (5, ):
+        menu = '🍭'
+    elif now.second%10 in (6, ):
+        menu = '🍱'
+    elif now.second%10 in (7, ):
+        menu = '🍣'
+    elif now.second%10 in (8, ):
         menu = '🍜'
     else:
         menu = '🍙'
